@@ -16,4 +16,3 @@ class Weapon:
     def critical_hit(self):
         rand = random()
         return rand > 0 and rand < self.critical_strike_percent
-

@@ -58,6 +58,9 @@ class TestEntity(unittest.TestCase):
         self.test_entity.equip_weapon(wep)
         self.assertTrue(self.test_entity.has_weapon())
 
+    def test_no_weapon(self):
+        self.assertFalse(self.test_entity.has_weapon())
+
     def test_attack_with_no_weapon(self):
         self.assertEqual(self.test_entity.attack(), 0)
 
