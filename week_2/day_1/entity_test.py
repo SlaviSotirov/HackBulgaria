@@ -58,5 +58,22 @@ class TestEntity(unittest.TestCase):
         self.test_entity.equip_weapon(wep)
         self.assertTrue(self.test_entity.has_weapon())
 
+    def test_attack_with_no_weapon(self):
+        self.assertEqual(self.test_entity.attack(), 0)
+
+    def test_attack(self):
+        wep = Weapon("Durvo", 50, 0)
+        self.test_entity.equip_weapon(wep)
+        self.assertEqual(self.test_entity.attack(), 50)
+
+    def test_attack_crit(self):
+        wep = Weapon("Durvo", 50, 0.9)
+        self.test_entity.equip_weapon(wep)
+        dmg_taken = []
+        for i in range(100):
+            dmg_taken.append(self.test_entity.attack())
+        self.assertIn(50, dmg_taken)
+        self.assertIn(100, dmg_taken)
+
 if __name__ == '__main__':
     unittest.main()

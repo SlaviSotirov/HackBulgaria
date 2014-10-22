@@ -39,3 +39,13 @@ class Entity:
             return True
         else:
             return False
+
+    def attack(self):
+        if not self.has_weapon():
+            return 0
+
+        else:
+            if self.weapon.critical_hit():
+                return self.weapon.damage * 2
+            else:
+                return self.weapon.damage

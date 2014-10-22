@@ -2,7 +2,7 @@ import sys
 
 
 def main():
-    for arg in sys.argv:
+    for arg in sys.argv[1:]:
         filename = arg
 
         file = open(filename, "r")
