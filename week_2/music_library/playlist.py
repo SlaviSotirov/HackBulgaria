@@ -45,7 +45,7 @@ class Playlist:
         total = 0
         for song in self.playlist:
             total += song.length
-        return total
+        return humanize_time(total)
 
     def remove_disrated(self, rating):
         for song in self.playlist:
@@ -78,5 +78,5 @@ class Playlist:
             songs.append(song.__dict__)
 
         with open("test", "w") as file:
-            json.dump({"name": self.name, "songs": songs}, file)
+            json.dump({"name": self.name, "songs": songs}, file, indent=4)
             file.close()
