@@ -23,8 +23,11 @@ class QueryHandler:
         self.cursor.execute(query, values)
         self.conn.commit()
 
+    # def select_query(self, fields):
+    #     query = "SELECT IN (?)"
+
     def select_employees(self):
-        query = 'SELECT name, position FROM employees'
+        query = 'SELECT id, name, position FROM employees'
         result = self.cursor.execute(query).fetchall()
         return result
 
@@ -35,8 +38,19 @@ class QueryHandler:
 
     def select_yearly_spending(self):
         query = 'SELECT SUM(yearly_bonus) FROM employees'
-        result = (self.cursor.execute(query).fetchall(), )
-        query = 'SELECT SUM(yearly_bonus) FROM employees'
-        result = result + (self.cursor.execute(query).fetchall(), )
-        print(result)
-        return result
+        bonuses = (self.cursor.execute(query).fetchall(), )
+        query = 'SELECT SUM(monthly_salary) FROM employees'
+        salaries = (self.cursor.execute(query).fetchall(), )
+        result = bonuses[0][0] + salaries[0][0]
+        return int(result[0]) + int(result[1])
+
+    def delete_query(self, id):
+        query = 'DELETE FROM employees WHERE id=?'
+        self.cursor.execute(query, (id,))
+        self.conn.commit()
+
+    def update_query(self, values):
+        query = 'UPDATE employees SET name=?, monthly_salary=?, yearly_bonus=?, position=? WHERE id=?'
+        self.cursor.execute(query, values)
+        self.conn.commit()
+
